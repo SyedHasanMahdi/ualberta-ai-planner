@@ -1,0 +1,137 @@
+const ALL_COURSES = [
+  // ── HIGH SCHOOL ───────────────────────────────────────────────────────────
+  { id:"HS_MATH",   code:"Math 30-1",   name:"High School Math",           dept:"HS",    cat:"Prereq",    year:0, units:0, pre:[], co:[], desc:"Alberta Math 30-1 or equivalent", url:"" },
+ 
+  // ── MATH ──────────────────────────────────────────────────────────────────
+  { id:"MATH100",   code:"MATH 100",    name:"Calculus for Engineering I",  dept:"MATH",  cat:"Math",      year:1, units:3.5, pre:["HS_MATH"], co:[], desc:"Limits, derivatives, integration, Taylor polynomials.", url:"https://apps.ualberta.ca/catalogue/course/math/100" },
+  { id:"MATH114",   code:"MATH 114",    name:"Elementary Calculus I",       dept:"MATH",  cat:"Math",      year:1, units:3, pre:["HS_MATH"], co:[], desc:"Differentiation, integration, Fundamental Theorem. Open study.", url:"https://apps.ualberta.ca/catalogue/course/math/114" },
+  { id:"MATH117",   code:"MATH 117",    name:"Honors Calculus I",           dept:"MATH",  cat:"Math",      year:1, units:3, pre:["HS_MATH"], co:[], desc:"Honors track. Requires 80%+ in Math 30-1 and Math 31.", url:"https://apps.ualberta.ca/catalogue/course/math/117" },
+  { id:"MATH134",   code:"MATH 134",    name:"Calculus for Life Sciences I",dept:"MATH",  cat:"Math",      year:1, units:3, pre:["HS_MATH"], co:[], desc:"Calculus in a life sciences context.", url:"https://apps.ualberta.ca/catalogue/course/math/134" },
+  { id:"MATH101",   code:"MATH 101",    name:"Calculus for Engineering II", dept:"MATH",  cat:"Math",      year:1, units:3.5, pre:["MATH100"], co:[], desc:"Integration techniques, series, polar coordinates.", url:"https://apps.ualberta.ca/catalogue/course/math/101" },
+  { id:"MATH115",   code:"MATH 115",    name:"Elementary Calculus II",      dept:"MATH",  cat:"Math",      year:1, units:3, pre:["MATH114"], co:[], desc:"Integration, differential equations. Open study.", url:"https://apps.ualberta.ca/catalogue/course/math/115" },
+  { id:"MATH118",   code:"MATH 118",    name:"Honors Calculus II",          dept:"MATH",  cat:"Math",      year:1, units:3, pre:["MATH117"], co:[], desc:"Integration, series, partial derivatives. Honors track.", url:"https://apps.ualberta.ca/catalogue/course/math/118" },
+  { id:"MATH102",   code:"MATH 102",    name:"Applied Linear Algebra",      dept:"MATH",  cat:"Math",      year:1, units:3.5, pre:[], co:["MATH100"], desc:"Vectors, matrices, eigenvalues. Engineering students. Prereq or coreq: MATH 100.", url:"https://apps.ualberta.ca/catalogue/course/math/102" },
+  { id:"MATH125",   code:"MATH 125",    name:"Linear Algebra I",            dept:"MATH",  cat:"Math",      year:1, units:3, pre:["HS_MATH"], co:[], desc:"Systems of equations, matrix algebra, eigenvalues. Open study.", url:"https://apps.ualberta.ca/catalogue/course/math/125" },
+  { id:"MATH127",   code:"MATH 127",    name:"Honors Linear Algebra I",     dept:"MATH",  cat:"Math",      year:1, units:3, pre:["HS_MATH"], co:[], desc:"Linear equations, vector spaces, determinants. Honors.", url:"https://apps.ualberta.ca/catalogue/course/math/127" },
+  { id:"MATH214",   code:"MATH 214",    name:"Calculus III",                dept:"MATH",  cat:"Math",      year:2, units:3, pre:["MATH115"], co:[], desc:"Series, Taylor series, partial differentiation, multiple integration.", url:"https://apps.ualberta.ca/catalogue/course/math/214" },
+  { id:"MATH225",   code:"MATH 225",    name:"Linear Algebra II",           dept:"MATH",  cat:"Math",      year:2, units:3, pre:["MATH114","MATH125"], co:[], desc:"Vector spaces, linear transformations, orthogonal diagonalization.", url:"https://apps.ualberta.ca/catalogue/course/math/225" },
+  { id:"MATH227",   code:"MATH 227",    name:"Honors Linear Algebra II",    dept:"MATH",  cat:"Math",      year:2, units:3, pre:["MATH127"], co:[], desc:"Canonical forms, inner product spaces, SVD. Honors track.", url:"https://apps.ualberta.ca/catalogue/course/math/227" },
+  { id:"MATH228",   code:"MATH 228",    name:"Algebra: Ring Theory",        dept:"MATH",  cat:"Math",      year:2, units:3, pre:["MATH125"], co:[], desc:"Commutative rings, fields, finite fields, polynomial codes.", url:"https://apps.ualberta.ca/catalogue/course/math/228" },
+  { id:"MATH315",   code:"MATH 315",    name:"Calculus IV",                 dept:"MATH",  cat:"Math",      year:3, units:3, pre:["MATH214","MATH125"], co:[], desc:"Vector calculus, line and surface integrals, Stokes' theorem.", url:"https://apps.ualberta.ca/catalogue/course/math/315" },
+  { id:"MATH334",   code:"MATH 334",    name:"Intro to Differential Eq.",   dept:"MATH",  cat:"Math",      year:2, units:3, pre:["MATH214"], co:[], desc:"First- and second-order ODEs, Laplace transforms, systems.", url:"https://apps.ualberta.ca/catalogue/course/math/334" },
+ 
+  // ── STAT ──────────────────────────────────────────────────────────────────
+  { id:"STAT151",   code:"STAT 151",    name:"Applied Statistics I",        dept:"STAT",  cat:"Stats",     year:1, units:3, pre:["HS_MATH"], co:[], desc:"Descriptive stats, probability, hypothesis testing, regression.", url:"https://apps.ualberta.ca/catalogue/course/stat/151" },
+  { id:"STAT161",   code:"STAT 161",    name:"Statistics for Business/Econ",dept:"STAT",  cat:"Stats",     year:1, units:3, pre:["HS_MATH"], co:[], desc:"Stats methods for business and economics.", url:"https://apps.ualberta.ca/catalogue/course/stat/161" },
+  { id:"STAT181",   code:"STAT 181",    name:"Combinatorics and Probability",dept:"STAT", cat:"Stats",     year:1, units:3, pre:["MATH125"], co:["MATH115"], desc:"Counting, conditional probability, MGFs, strong LLN.", url:"https://apps.ualberta.ca/catalogue/course/stat/181" },
+  { id:"STAT235",   code:"STAT 235",    name:"Statistics for Engineering",  dept:"STAT",  cat:"Stats",     year:1, units:3, pre:["MATH100"], co:["MATH101"], desc:"Applied probability and statistics for engineers.", url:"https://apps.ualberta.ca/catalogue/course/stat/235" },
+  { id:"STAT252",   code:"STAT 252",    name:"Applied Statistics II",       dept:"STAT",  cat:"Stats",     year:2, units:3, pre:["STAT151"], co:[], desc:"Regression, ANOVA, data analysis methods.", url:"https://apps.ualberta.ca/catalogue/course/stat/252" },
+  { id:"STAT265",   code:"STAT 265",    name:"Probability & Statistics I",  dept:"STAT",  cat:"Stats",     year:1, units:3, pre:[], co:["MATH214"], desc:"Sample spaces, random variables, distributions, multivariate.", url:"https://apps.ualberta.ca/catalogue/course/stat/265" },
+  { id:"STAT266",   code:"STAT 266",    name:"Probability & Statistics II", dept:"STAT",  cat:"Stats",     year:2, units:3, pre:["MATH214","STAT265"], co:["MATH225"], desc:"Functions of RVs, CLT, statistical inference, MLE, testing.", url:"https://apps.ualberta.ca/catalogue/course/stat/266" },
+  { id:"STAT276",   code:"STAT 276",    name:"Statistics for Data Science", dept:"STAT",  cat:"Stats",     year:2, units:3, pre:["STAT265"], co:[], desc:"Statistical learning, inference, regression, CLT for DS.", url:"https://apps.ualberta.ca/catalogue/course/stat/276" },
+  { id:"STAT281",   code:"STAT 281",    name:"Probability by Counting/Queuing",dept:"STAT",cat:"Stats",   year:2, units:3, pre:[], co:["MATH214"], desc:"Poisson processes, queues, Markov chains, steady-state.", url:"https://apps.ualberta.ca/catalogue/course/stat/281" },
+  { id:"STAT337",   code:"STAT 337",    name:"Biostatistics",               dept:"STAT",  cat:"Stats",     year:3, units:3, pre:["STAT151"], co:[], desc:"ANOVA, multiple regression, logistic regression for biosciences.", url:"https://apps.ualberta.ca/catalogue/course/stat/337" },
+  { id:"STAT368",   code:"STAT 368",    name:"Design & Analysis of Exp.",   dept:"STAT",  cat:"Stats",     year:3, units:3, pre:["STAT266"], co:[], desc:"Experimental design, randomization, factorial experiments.", url:"https://apps.ualberta.ca/catalogue/course/stat/368" },
+ 
+  // ── CMPUT ─────────────────────────────────────────────────────────────────
+  { id:"CMPUT174",  code:"CMPUT 174",   name:"Foundations of Computation I",dept:"CMPUT", cat:"CS Core",   year:1, units:3, pre:["HS_MATH"], co:[], desc:"Problem-driven programming; state, control flow, recursion, data structures.", url:"https://apps.ualberta.ca/catalogue/course/cmput/174" },
+  { id:"CMPUT175",  code:"CMPUT 175",   name:"Foundations of Computation II",dept:"CMPUT",cat:"CS Core",   year:1, units:3, pre:["CMPUT174"], co:[], desc:"Objects, functional programming, ADTs, sorting algorithms.", url:"https://apps.ualberta.ca/catalogue/course/cmput/175" },
+  { id:"CMPUT191",  code:"CMPUT 191",   name:"Introduction to Data Science", dept:"CMPUT",cat:"AI/ML",     year:1, units:3, pre:["HS_MATH"], co:[], desc:"Data acquisition, cleaning, classification, visualization.", url:"https://apps.ualberta.ca/catalogue/course/cmput/191" },
+  { id:"CMPUT195",  code:"CMPUT 195",   name:"Principles of Data Science",   dept:"CMPUT",cat:"AI/ML",     year:1, units:3, pre:["CMPUT174"], co:[], desc:"Data manipulation, analysis, visualization, industry tools.", url:"https://apps.ualberta.ca/catalogue/course/cmput/195" },
+  { id:"CMPUT200",  code:"CMPUT 200",   name:"Ethics of AI & Data Science",  dept:"CMPUT",cat:"AI/ML",     year:2, units:3, pre:["CMPUT195"], co:[], desc:"Privacy, fairness, bias, explainability in AI systems.", url:"https://apps.ualberta.ca/catalogue/course/cmput/200" },
+  { id:"CMPUT201",  code:"CMPUT 201",   name:"Practical Programming Method.",dept:"CMPUT", cat:"CS Core",  year:2, units:3, pre:["CMPUT175"], co:[], desc:"C programming, software engineering principles, Unix tools.", url:"https://apps.ualberta.ca/catalogue/course/cmput/201" },
+  { id:"CMPUT204",  code:"CMPUT 204",   name:"Algorithms I",                  dept:"CMPUT",cat:"CS Core",  year:2, units:3, pre:["CMPUT175","CMPUT272","MATH100"], co:[], desc:"Sorting, graph algorithms, dynamic programming, greedy methods.", url:"https://apps.ualberta.ca/catalogue/course/cmput/204" },
+  { id:"CMPUT206",  code:"CMPUT 206",   name:"Digital Image Processing",      dept:"CMPUT",cat:"AI/ML",    year:2, units:3, pre:["CMPUT174","MATH100","STAT151"], co:[], desc:"Image processing theory and algorithms with Python.", url:"https://apps.ualberta.ca/catalogue/course/cmput/206" },
+  { id:"CMPUT229",  code:"CMPUT 229",   name:"Computer Org. & Architecture",  dept:"CMPUT",cat:"CS Core",  year:2, units:3, pre:["CMPUT201"], co:[], desc:"Assembly, pipelining, memory hierarchy, virtual memory.", url:"https://apps.ualberta.ca/catalogue/course/cmput/229" },
+  { id:"CMPUT250",  code:"CMPUT 250",   name:"Computers and Games",           dept:"CMPUT",cat:"Elective", year:2, units:3, pre:[], co:[], desc:"Interdisciplinary game design course. Requires application.", url:"https://apps.ualberta.ca/catalogue/course/cmput/250" },
+  { id:"CMPUT256",  code:"CMPUT 256",   name:"Game Artificial Intelligence",  dept:"CMPUT",cat:"AI/ML",    year:1, units:3, pre:["CMPUT174"], co:[], desc:"AI for games: pathfinding, decision-making, data science.", url:"https://apps.ualberta.ca/catalogue/course/cmput/256" },
+  { id:"CMPUT261",  code:"CMPUT 261",   name:"Introduction to AI",            dept:"CMPUT",cat:"AI/ML",    year:2, units:3, pre:["STAT151"], co:["CMPUT204"], desc:"Search, knowledge representation, uncertainty, ML, neural nets.", url:"https://apps.ualberta.ca/catalogue/course/cmput/261" },
+  { id:"CMPUT267",  code:"CMPUT 267",   name:"Machine Learning I",            dept:"CMPUT",cat:"AI/ML",    year:2, units:3, pre:["CMPUT174","MATH100"], co:["CMPUT175","CMPUT272","MATH102","STAT265"], desc:"Statistical foundations of ML: models, estimation, generalization.", url:"https://apps.ualberta.ca/catalogue/course/cmput/267" },
+  { id:"CMPUT272",  code:"CMPUT 272",   name:"Formal Systems & Logic",        dept:"CMPUT",cat:"CS Core",  year:1, units:3, pre:["CMPUT174"], co:[], desc:"Set theory, logic, induction, program correctness.", url:"https://apps.ualberta.ca/catalogue/course/cmput/272" },
+  { id:"CMPUT274",  code:"CMPUT 274",   name:"Tangible Computing I (Acc.)",   dept:"CMPUT",cat:"CS Core",  year:1, units:3, pre:["HS_MATH"], co:[], desc:"Accelerated Python intro; studio-style. Alt to CMPUT 174.", url:"https://apps.ualberta.ca/catalogue/course/cmput/274" },
+  { id:"CMPUT275",  code:"CMPUT 275",   name:"Tangible Computing II (Acc.)",  dept:"CMPUT",cat:"CS Core",  year:1, units:3, pre:["CMPUT274"], co:[], desc:"Accelerated C++, OOP, graphs. Alt to CMPUT 175+201.", url:"https://apps.ualberta.ca/catalogue/course/cmput/275" },
+  { id:"CMPUT291",  code:"CMPUT 291",   name:"File & Database Management",    dept:"CMPUT",cat:"CS Core",  year:2, units:3, pre:["CMPUT175","CMPUT272"], co:["CMPUT201"], desc:"Relational model, SQL, storage architecture, query languages.", url:"https://apps.ualberta.ca/catalogue/course/cmput/291" },
+  { id:"CMPUT300",  code:"CMPUT 300",   name:"Computers & Society",           dept:"CMPUT",cat:"Elective", year:2, units:3, pre:["CMPUT174"], co:[], desc:"Social, ethical, professional, legal issues in CS.", url:"https://apps.ualberta.ca/catalogue/course/cmput/300" },
+  { id:"CMPUT301",  code:"CMPUT 301",   name:"Software Engineering",          dept:"CMPUT",cat:"CS Core",  year:2, units:3, pre:["CMPUT201"], co:[], desc:"OO design, UML, revision control, software process.", url:"https://apps.ualberta.ca/catalogue/course/cmput/301" },
+  { id:"CMPUT302",  code:"CMPUT 302",   name:"Human-Computer Interaction",    dept:"CMPUT",cat:"Elective", year:3, units:3, pre:["CMPUT301"], co:[], desc:"User-centered design, usability evaluation, HCI methods.", url:"https://apps.ualberta.ca/catalogue/course/cmput/302" },
+  { id:"CMPUT304",  code:"CMPUT 304",   name:"Algorithms II",                  dept:"CMPUT",cat:"CS Core", year:3, units:3, pre:["CMPUT204","STAT265"], co:[], desc:"NP-completeness, approximation, randomized algorithms.", url:"https://apps.ualberta.ca/catalogue/course/cmput/304" },
+  { id:"CMPUT307",  code:"CMPUT 307",   name:"3D Modeling & Animation",        dept:"CMPUT",cat:"Elective",year:3, units:3, pre:["CMPUT204"], co:[], desc:"3D modeling, rendering, animation algorithms.", url:"https://apps.ualberta.ca/catalogue/course/cmput/307" },
+  { id:"CMPUT312",  code:"CMPUT 312",   name:"Robotics & Mechatronics",        dept:"CMPUT",cat:"AI/ML",   year:3, units:3, pre:["CMPUT204","MATH100"], co:[], desc:"Sensor technologies, motion control, real-time programming.", url:"https://apps.ualberta.ca/catalogue/course/cmput/312" },
+  { id:"CMPUT313",  code:"CMPUT 313",   name:"Computer Networks",              dept:"CMPUT",cat:"CS Core", year:3, units:3, pre:["CMPUT201","CMPUT204","CMPUT229"], co:[], desc:"Networking protocols, error control, routing, internet.", url:"https://apps.ualberta.ca/catalogue/course/cmput/313" },
+  { id:"CMPUT325",  code:"CMPUT 325",   name:"Non-Procedural Prog. Languages", dept:"CMPUT",cat:"Elective",year:3, units:3, pre:["CMPUT201"], co:[], desc:"Functional, logic, and declarative programming paradigms.", url:"https://apps.ualberta.ca/catalogue/course/cmput/325" },
+  { id:"CMPUT328",  code:"CMPUT 328",   name:"Visual Recognition",             dept:"CMPUT",cat:"AI/ML",   year:3, units:3, pre:["CMPUT204","STAT265"], co:[], desc:"Computer vision: detection, classification, neural networks.", url:"https://apps.ualberta.ca/catalogue/course/cmput/328" },
+  { id:"CMPUT331",  code:"CMPUT 331",   name:"Computational Cryptography",     dept:"CMPUT",cat:"Elective",year:3, units:3, pre:["CMPUT201","CMPUT272"], co:[], desc:"Encryption, deciphering, cryptographic protocols.", url:"https://apps.ualberta.ca/catalogue/course/cmput/331" },
+  { id:"CMPUT340",  code:"CMPUT 340",   name:"Numerical Methods",              dept:"CMPUT",cat:"AI/ML",   year:3, units:3, pre:["CMPUT204","MATH102","STAT265"], co:[], desc:"Numerical algorithms for science and engineering.", url:"https://apps.ualberta.ca/catalogue/course/cmput/340" },
+  { id:"CMPUT350",  code:"CMPUT 350",   name:"Advanced Games Programming",     dept:"CMPUT",cat:"AI/ML",   year:3, units:3, pre:["CMPUT204"], co:[], desc:"Game engines, physics, AI for interactive entertainment.", url:"https://apps.ualberta.ca/catalogue/course/cmput/350" },
+  { id:"CMPUT355",  code:"CMPUT 355",   name:"Games, Puzzles & Algorithms",    dept:"CMPUT",cat:"Elective",year:3, units:3, pre:["CMPUT204"], co:[], desc:"Combinatorial game theory and puzzle algorithms.", url:"https://apps.ualberta.ca/catalogue/course/cmput/355" },
+  { id:"CMPUT361",  code:"CMPUT 361",   name:"Information Retrieval",          dept:"CMPUT",cat:"AI/ML",   year:3, units:3, pre:["CMPUT201","CMPUT204"], co:[], desc:"Boolean retrieval, ranking, web search, ML for text.", url:"https://apps.ualberta.ca/catalogue/course/cmput/361" },
+  { id:"CMPUT365",  code:"CMPUT 365",   name:"Reinforcement Learning",         dept:"CMPUT",cat:"AI/ML",   year:3, units:3, pre:["CMPUT175","STAT265"], co:[], desc:"Bandits, MDPs, RL algorithms, function approximation.", url:"https://apps.ualberta.ca/catalogue/course/cmput/365" },
+  { id:"CMPUT366",  code:"CMPUT 366",   name:"Search & Planning in AI",        dept:"CMPUT",cat:"AI/ML",   year:3, units:3, pre:["CMPUT204","CMPUT272"], co:[], desc:"Search, constraint satisfaction, multi-agent planning.", url:"https://apps.ualberta.ca/catalogue/course/cmput/366" },
+  { id:"CMPUT379",  code:"CMPUT 379",   name:"Operating Systems",              dept:"CMPUT",cat:"CS Core", year:3, units:3, pre:["CMPUT201","CMPUT229"], co:[], desc:"Processes, memory, file systems, virtual machines.", url:"https://apps.ualberta.ca/catalogue/course/cmput/379" },
+  { id:"CMPUT391",  code:"CMPUT 391",   name:"Database Management Systems",    dept:"CMPUT",cat:"Elective",year:3, units:3, pre:["CMPUT291"], co:[], desc:"Advanced database concepts, query optimization, transactions.", url:"https://apps.ualberta.ca/catalogue/course/cmput/391" },
+  { id:"CMPUT401",  code:"CMPUT 401",   name:"Software Process Mgmt",          dept:"CMPUT",cat:"Elective",year:4, units:3, pre:["CMPUT301"], co:[], desc:"Best practices in software project and product management.", url:"https://apps.ualberta.ca/catalogue/course/cmput/401" },
+  { id:"CMPUT402",  code:"CMPUT 402",   name:"Software Quality",               dept:"CMPUT",cat:"Elective",year:4, units:3, pre:["CMPUT301"], co:[], desc:"Testing, reviews, continuous integration, quality tools.", url:"https://apps.ualberta.ca/catalogue/course/cmput/402" },
+  { id:"CMPUT411",  code:"CMPUT 411",   name:"Robotics (Advanced)",            dept:"CMPUT",cat:"AI/ML",   year:4, units:3, pre:["CMPUT201","CMPUT204","CMPUT340"], co:["CMPUT340"], desc:"Advanced robotics: sensing, actuating, real-time control.", url:"" },
+  { id:"CMPUT412",  code:"CMPUT 412",   name:"Experimental Mobile Robotics",   dept:"CMPUT",cat:"AI/ML",   year:4, units:3, pre:["CMPUT201","CMPUT204","CMPUT340"], co:[], desc:"Sensor processing, motion control for mobile robots.", url:"https://apps.ualberta.ca/catalogue/course/cmput/412" },
+  { id:"CMPUT416",  code:"CMPUT 416",   name:"Program Analysis",               dept:"CMPUT",cat:"Elective",year:4, units:3, pre:["CMPUT379"], co:[], desc:"Intermediate representations, pointer analysis, call graphs.", url:"" },
+  { id:"CMPUT429",  code:"CMPUT 429",   name:"Compiler Design",                dept:"CMPUT",cat:"Elective",year:4, units:3, pre:["CMPUT229","CMPUT304"], co:[], desc:"Lexical analysis, parsing, code generation, optimization.", url:"" },
+  { id:"CMPUT455",  code:"CMPUT 455",   name:"Search, Knowledge & Simulation", dept:"CMPUT",cat:"AI/ML",   year:4, units:3, pre:["CMPUT366"], co:[], desc:"Decision-making algorithms, game-tree search, simulation.", url:"https://apps.ualberta.ca/catalogue/course/cmput/455" },
+  { id:"CMPUT461",  code:"CMPUT 461",   name:"Natural Language Processing",    dept:"CMPUT",cat:"AI/ML",   year:4, units:3, pre:["CMPUT201","CMPUT361"], co:[], desc:"NLP methods, language models, statistical NLP with ML.", url:"https://apps.ualberta.ca/catalogue/course/cmput/461" },
+  { id:"CMPUT463",  code:"CMPUT 463",   name:"Probabilistic Graphical Models", dept:"CMPUT",cat:"AI/ML",   year:4, units:3, pre:["CMPUT204","CMPUT267"], co:[], desc:"Bayesian networks, inference, learning in PGMs.", url:"https://apps.ualberta.ca/catalogue/course/cmput/463" },
+  { id:"CMPUT466",  code:"CMPUT 466",   name:"Machine Learning (Essentials)",  dept:"CMPUT",cat:"AI/ML",   year:4, units:3, pre:["CMPUT204","STAT265","MATH125"], co:[], desc:"Single-course ML alt. to 267+467: regression to neural nets.", url:"https://apps.ualberta.ca/catalogue/course/cmput/466" },
+  { id:"CMPUT467",  code:"CMPUT 467",   name:"Machine Learning II",            dept:"CMPUT",cat:"AI/ML",   year:4, units:3, pre:["CMPUT204","CMPUT267"], co:[], desc:"Deep learning, neural networks, generative models, optimization.", url:"https://apps.ualberta.ca/catalogue/course/cmput/467" },
+  { id:"CMPUT469",  code:"CMPUT 469",   name:"AI Capstone",                    dept:"CMPUT",cat:"Capstone", year:4, units:3, pre:["CMPUT267","CMPUT365","CMPUT366"], co:[], desc:"Team project applying AI to a real-world task. Required for Hons AI.", url:"https://apps.ualberta.ca/catalogue/course/cmput/469" },
+  { id:"CMPUT474",  code:"CMPUT 474",   name:"Explainability in AI",           dept:"CMPUT",cat:"AI/ML",   year:4, units:3, pre:["CMPUT466"], co:[], desc:"Methods for explainable and interpretable AI systems.", url:"" },
+  { id:"CMPUT428",  code:"CMPUT 428",   name:"ML for Computer Vision",         dept:"CMPUT",cat:"AI/ML",   year:4, units:3, pre:["CMPUT328","CMPUT467"], co:[], desc:"Deep learning applied to visual recognition tasks.", url:"" },
+ 
+  // ── ECE / ENGINEERING ─────────────────────────────────────────────────────
+  { id:"ECE212",    code:"ECE 212",     name:"Computer Organization (ECE)",    dept:"ECE",   cat:"CS Core", year:2, units:3, pre:["CMPUT201"], co:[], desc:"ECE equivalent to CMPUT 229. Computer organization and architecture.", url:"https://apps.ualberta.ca/catalogue/course/ece/212" },
+ 
+  // ── PHIL ──────────────────────────────────────────────────────────────────
+  { id:"PHIL120",   code:"PHIL 120",    name:"Intro to Logic",                 dept:"PHIL",  cat:"Liberal", year:1, units:3, pre:[], co:[], desc:"Deductive logic, symbolic logic, argument analysis.", url:"https://apps.ualberta.ca/catalogue/course/phil/120" },
+  { id:"PHIL222",   code:"PHIL 222",    name:"Formal Logic",                   dept:"PHIL",  cat:"Liberal", year:2, units:3, pre:["PHIL120"], co:[], desc:"Predicate logic, proofs, soundness and completeness.", url:"" },
+  { id:"PHIL366",   code:"PHIL 366",    name:"Philosophy of Mind",             dept:"PHIL",  cat:"Liberal", year:3, units:3, pre:[], co:[], desc:"Consciousness, cognition, AI and mind.", url:"" },
+  { id:"PHIL447",   code:"PHIL 447",    name:"Philosophy of AI",               dept:"PHIL",  cat:"Liberal", year:4, units:3, pre:[], co:[], desc:"Ethical and philosophical dimensions of AI.", url:"" },
+ 
+  // ── LING ──────────────────────────────────────────────────────────────────
+  { id:"LING101",   code:"LING 101",    name:"Intro to Linguistics",           dept:"LING",  cat:"Liberal", year:1, units:3, pre:[], co:[], desc:"Phonetics, morphology, syntax, semantics.", url:"https://apps.ualberta.ca/catalogue/course/ling/101" },
+  { id:"LING307",   code:"LING 307",    name:"Syntax",                         dept:"LING",  cat:"Liberal", year:3, units:3, pre:["LING101"], co:[], desc:"Syntactic theory, phrase structure, transformations.", url:"" },
+  { id:"LING415",   code:"LING 415",    name:"Computational Linguistics",      dept:"LING",  cat:"Liberal", year:4, units:3, pre:["LING101","CMPUT175"], co:[], desc:"NLP from a linguistics perspective; parsing, semantics.", url:"" },
+ 
+  // ── SCI ───────────────────────────────────────────────────────────────────
+  { id:"SCI100",    code:"SCI 100",     name:"Interdisciplinary Science",      dept:"SCI",   cat:"Prereq",  year:1, units:6, pre:["HS_MATH"], co:[], desc:"Intro science course. Can substitute for CMPUT 174/175 in some prereq chains.", url:"https://apps.ualberta.ca/catalogue/course/sci/100" },
+];
+ 
+// ─── DEFAULT INCLUDED IDs (the recommended BSc CS AI Option plan) ──────────
+const DEFAULT_INCLUDED = new Set([
+  "HS_MATH","MATH100","MATH102","MATH125","MATH115","MATH214","MATH225","MATH334",
+  "STAT151","STAT265","STAT266","STAT252",
+  "CMPUT174","CMPUT175","CMPUT272","CMPUT201","CMPUT204","CMPUT291","CMPUT267",
+  "CMPUT229","CMPUT261","CMPUT301","CMPUT365","CMPUT366","CMPUT379","CMPUT195",
+  "CMPUT200","CMPUT328","CMPUT312","CMPUT340","CMPUT350","CMPUT361","CMPUT391",
+  "CMPUT467","CMPUT455","CMPUT461","CMPUT463","CMPUT469","CMPUT304","CMPUT313",
+]);
+ 
+// Status colours
+const CAT_COLORS = {
+  "CS Core":  { fill:"#1a56db", text:"#bfdbfe", border:"#3b82f6" },
+  "AI/ML":    { fill:"#065f46", text:"#6ee7b7", border:"#10b981" },
+  "Math":     { fill:"#78350f", text:"#fde68a", border:"#f59e0b" },
+  "Stats":    { fill:"#5b21b6", text:"#ddd6fe", border:"#8b5cf6" },
+  "Capstone": { fill:"#9f1239", text:"#fda4af", border:"#f43f5e" },
+  "Elective": { fill:"#374151", text:"#d1d5db", border:"#6b7280" },
+  "Liberal":  { fill:"#164e63", text:"#a5f3fc", border:"#22d3ee" },
+  "Prereq":   { fill:"#1f2937", text:"#9ca3af", border:"#4b5563" },
+};
+ 
+const DEPT_GROUPS = {
+  "CMPUT": "Computing Science",
+  "MATH":  "Mathematics",
+  "STAT":  "Statistics",
+  "ECE":   "Engineering",
+  "PHIL":  "Philosophy",
+  "LING":  "Linguistics",
+  "SCI":   "Science",
+  "HS":    "Prerequisites",
+};
+ 
